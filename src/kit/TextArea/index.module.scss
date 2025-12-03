@@ -1,0 +1,20 @@
+.textarea {
+  background: transparent;
+  outline: 0;
+
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+}
+.size {
+  &-sm {
+    height: 40rem;
+  }
+  &-md {
+    height: 48rem;
+  }
+  &-lg {
+    height: 56rem;
+  }
+}

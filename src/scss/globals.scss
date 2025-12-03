@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'github-markdown-css/github-markdown-dark.css';
+@import 'mixins/animation';
+
+:root {
+  --color-primary: #ffb21d;
+  --color-primary-3: #ffb21d08;
+  --color-primary-5: #ffb21d0d;
+  --color-primary-10: #ffb21d1a;
+  --color-primary-20: #ffb21d33;
+  --color-primary-30: #ffb21d4d;
+  --color-black: #111214;
+  --color-white: #e0e1e8;
+  --color-white-3: #ffffff08;
+  --color-white-5: #ffffff0d;
+  --color-white-10: #ffffff1a;
+  --color-white-20: #ffffff33;
+  --color-white-30: #e0e1e84d;
+  --color-regular: #e0e1e8b2;
+  --color-green: #27ff7d;
+  --color-green-3: #27ff7d08;
+  --color-green-5: #27ff7d0d;
+  --color-green-10: #27ff7d1a;
+  --color-green-20: #27ff7d33;
+  --color-green-30: #27ff7d4d;
+  --color-inherit: #fff;
+  --color-red: #ff3939;
+  --color-red-3: #ff393908;
+  --color-red-5: #ff39390d;
+  --color-red-10: #ff39391a;
+  --color-red-20: #ff393933;
+  --color-red-30: #ff39394d;
+  --color-primary-grad-1: #e5611f;
+  --color-primary-grad-2: #e18c3d;
+}
+
+html,
+body {
+  font-size: 1px;
+  text-rendering: optimizeLegibility;
+  -webkit-overflow-scrolling: touch;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-black);
+}
+
+#root {
+  font-size: 14rem;
+  color: var(--color-white);
+}
+
+.text-font-inter {
+  font-family: Inter, sans-serif !important;
+}
+
+.text-font-titillium {
+  font-family: 'Titillium Web', sans-serif !important;
+}
+
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  background-color: var(--color-black);
+
+  p {
+    color: var(--color-regular);
+    font-size: 18rem;
+    font-weight: 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-white);
+    font-weight: 700;
+    border: none;
+    padding-bottom: 0;
+    font-family: 'Titillium Web', sans-serif !important;
+  }
+
+  h1 {
+    font-size: 32rem;
+  }
+
+  h2 {
+    font-size: 22rem;
+  }
+
+  table * {
+    color: var(--color-regular);
+    background-color: var(--color-black);
+  }
+}
+
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px;
+  }
+}
+
+@media (min-width: 268px) {
+  ::-webkit-scrollbar {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #29313e;
+    border: 1px solid #29313e;
+    border-radius: 4rem;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  body::-webkit-scrollbar {
+    height: 6rem;
+    width: 8rem !important;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background: rgb(94, 102, 115);
+    border-radius: 3rem;
+    height: 90rem;
+  }
+}
+
+.container {
+  background-color: var(--color-white-3);
+  border: 0.5px solid var(--color-white-10);
+  border-radius: 12rem;
+  padding: 24px;
+  @media (max-width: 640px) {
+    padding: 16px;
+  }
+}
+
+.markdown-body ol {
+  list-style-type: decimal;
+}
+.markdown-body ul {
+  list-style-type: disc;
+}

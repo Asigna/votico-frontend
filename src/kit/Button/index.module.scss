@@ -1,0 +1,115 @@
+.button {
+  outline: 0.5px solid var(--color-white-3);
+
+  &.hoverMessage {
+    & > .underTxt {
+      display: none;
+    }
+    &:hover {
+      & > .overTxt {
+        display: none !important;
+      }
+      & > span {
+        display: none !important;
+      }
+      & > .underTxt {
+        display: block;
+      }
+    }
+  }
+
+  &:hover {
+    &.primary {
+      background-image: linear-gradient(
+        270deg,
+        var(--color-primary-grad-1) 0%,
+        var(--color-primary-grad-2) 100%
+      ) !important;
+    }
+
+    &.secondary {
+      background-image: linear-gradient(
+        270deg,
+        rgba(255, 220, 151, 0.2) 0%,
+        rgba(255, 169, 121, 0.2) 100%
+      ) !important;
+    }
+
+    &.inherit {
+      background: var(--color-white-3);
+    }
+  }
+
+  &:active {
+    outline: 1px solid var(--color-inherit);
+
+    &.primary {
+      background-image: linear-gradient(
+        270deg,
+        var(--color-primary-grad-1) 0%,
+        var(--color-primary-grad-2) 100%
+      ) !important;
+    }
+
+    &.secondary {
+      background-image: linear-gradient(
+        270deg,
+        rgba(255, 220, 151, 0.2) 0%,
+        rgba(255, 169, 121, 0.2) 100%
+      ) !important;
+    }
+  }
+
+  &.disabled {
+    outline: 0.5px solid transparent;
+    pointer-events: none;
+
+    &.primary {
+      background-image: linear-gradient(
+        270deg,
+        rgba(255, 207, 114, 0.3) 0%,
+        rgba(255, 143, 80, 0.3) 100%
+      ) !important;
+    }
+
+    &.secondary {
+      background-image: linear-gradient(
+        270deg,
+        rgba(255, 220, 151, 0.1) 0%,
+        rgba(255, 169, 121, 0.1) 100%
+      ) !important;
+    }
+  }
+}
+
+.primary {
+  background-image: linear-gradient(
+    270deg,
+    var(--color-primary-grad-1) 0%,
+    var(--color-primary-grad-2) 100%
+  ) !important;
+}
+
+.secondary {
+  background-image: linear-gradient(
+    270deg,
+    rgba(255, 220, 151, 0.1) 0%,
+    rgba(255, 169, 121, 0.1) 100%
+  ) !important;
+}
+
+.inherit {
+  background-color: transparent;
+}
+
+.size {
+  &-sm {
+    height: 40rem;
+  }
+  &-md {
+    height: 48rem;
+  }
+  &-lg {
+    height: 56rem;
+  }
+}

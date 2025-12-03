@@ -1,0 +1,14 @@
+.input {
+  background: var(--color-white-3);
+  outline: 1px solid var(--color-white-10);
+  color: var(--color-white);
+
+  &:active,
+  &:focus {
+    outline: 1px solid var(--color-white-30);
+  }
+}
+.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}

@@ -1,0 +1,12 @@
+.wrap {
+  background: var(--color-white-3);
+  border: 0.5px solid var(--color-white-10);
+
+  &:hover {
+    background: var(--color-white-10);
+  }
+}
+
+.badge {
+  background: var(--color-white-5);
+}

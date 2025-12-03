@@ -1,0 +1,15 @@
+.dropdownWrapper {
+  backdrop-filter: blur(20px);
+}
+
+.size {
+  &-sm {
+    height: 40rem;
+  }
+  &-md {
+    height: 48rem;
+  }
+  &-lg {
+    height: 56rem;
+  }
+}

@@ -1,0 +1,25 @@
+.wrap {
+  border: 0.5px solid var(--color-white-10);
+}
+
+.separator {
+  &:before,
+  &:after {
+    content: '';
+    display: inline-block;
+    height: 1px;
+    width: 100px;
+    background: var(--color-inherit);
+    opacity: 0.1;
+    position: absolute;
+    top: 50%;
+  }
+
+  &:before {
+    left: 0;
+  }
+
+  &:after {
+    right: 0;
+  }
+}

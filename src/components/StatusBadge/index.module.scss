@@ -1,0 +1,33 @@
+.badge {
+  background-color: var(--color-white-5);
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 12rem;
+    top: calc(50% - 2rem);
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: var(--color-regular);
+
+    @media (max-width: 640px) {
+      left: 6rem;
+    }
+  }
+
+  &.isActive {
+    background-color: var(--color-green-10);
+
+    &:after {
+      background-color: var(--color-green);
+    }
+  }
+  &.isPending {
+    background-color: var(--color-primary-10);
+
+    &:after {
+      background-color: var(--color-primary);
+    }
+  }
+}

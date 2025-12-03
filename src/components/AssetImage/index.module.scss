@@ -1,0 +1,7 @@
+.image {
+  &:after {
+    content: ''attr(data-name)'';
+    font-size: 18rem;
+    font-weight: 600;
+  }
+}

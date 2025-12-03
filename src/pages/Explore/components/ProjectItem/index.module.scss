@@ -1,0 +1,15 @@
+.wrap {
+  min-width: 212rem;
+
+  &:hover {
+    background: var(--color-white-5);
+    border: 0.5px solid var(--color-white-20);
+  }
+
+  @media (max-width: 640px) {
+    min-width: calc(50% - 8px);
+  }
+  @media (max-width: 380px) {
+    min-width: 100%;
+  }
+}
