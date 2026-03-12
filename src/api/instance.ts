@@ -11,7 +11,7 @@ const getAppName = () => {
     return url.replace(/^app\./, '');
   }
 
-  return url;
+  return 'voti.co';
 };
 
 export const apiUrl = `https://api.${getAppName()}/api/v1/`;
