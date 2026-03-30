@@ -8,6 +8,7 @@ The project is developed using the following technologies:
 
 - React (TypeScript)
 - Tailwind CSS
+- SCSS (for shared global styles and mixins)
 - Vite (with SWC)
 
 ## Getting Started
@@ -20,6 +21,7 @@ To get started with the project, follow these steps.
 - `npm run dev` - run local server [http://localhost:5173/](http://localhost:5173/)
 - `npm run build` - create production build in the `dist` folder
 - `npm run lint` - check all application files using ESLint
+- `npm run preview` - preview the latest production build locally
 
 > Configure **prettier** in your IDE for code formatting
 
@@ -35,7 +37,7 @@ The project is organized as follows:
 - `api` - Folder for logic and middleware used for network operations and HTTP request handling.
 - `kit` - Contains basic components from the design system, which serve as the foundation for other components.
 - `pages` - Contains application pages, each with its own component structure and used in routing.
-- `scss` - Folder with common SCSS/CSS rules for application styling.
+- `scss` - Folder with shared SCSS rules, Tailwind entry styles, and global mixins.
 - `store` - Contains application state, organized using a state management library (e.g., Jotai).
 - `types` - Folder for TypeScript type declarations used in the application.
 - `utils` - Contains helper functions and utilities that can be used in various parts of the application to perform common tasks.
@@ -45,7 +47,7 @@ The project is organized as follows:
 
 - Each component is located in its own folder.
 - The main component file is named `index.tsx`.
-- The component's style file is named `index.module.scss`.
+- Component styles may live in `index.module.scss` when local SCSS modules are needed.
 - Component-specific types are declared in the `types.d.ts` file within the component folder.
 
 ### Nested Components Structure
