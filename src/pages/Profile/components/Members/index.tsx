@@ -31,13 +31,7 @@ export const Members: React.FC<MembersProps> = React.memo((props) => {
     ({ action, userId, type }: { action: 'edit' | 'delete'; userId: string; type?: string }) => {
       if (action === 'edit') {
         setMembers((prevState) =>
-          prevState.map((member) => {
-            if (type && member._id === userId) {
-              member.type = type;
-            }
-
-            return member;
-          })
+          prevState.map((member) => (type && member._id === userId ? { ...member, type } : member))
         );
       } else if (action === 'delete') {
         setMembers((prevState) =>
