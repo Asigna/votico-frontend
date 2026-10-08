@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { ReactSortable } from 'react-sortablejs';
 
@@ -37,8 +37,14 @@ export const Choices: React.FC<ChoicesProps> = React.memo((props) => {
     );
   };
 
+  const onChangeRef = useRef(onChange);
   useEffect(() => {
-    onChange(items);
+    onChangeRef.current = onChange;
+  }, [onChange]);
+
+  // Notify only when choices change, not when the parent recreates its callback.
+  useEffect(() => {
+    onChangeRef.current(items);
   }, [items]);
 
   return (

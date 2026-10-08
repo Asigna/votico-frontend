@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { Image } from '../../kit/Image';
 import { Text } from '../../kit/Text';
@@ -20,8 +20,15 @@ const WrongNetworkPopup: React.FC<WrongNetworkPopupProps> = ({ onClose }) => {
     onClose?.();
   };
 
+  const popupRef = useRef({ autoHide: wrongNetworkPopupOptions.autoHide, handleClose });
   useEffect(() => {
-    if (wrongNetworkPopupShown && wrongNetworkPopupOptions.autoHide) {
+    popupRef.current = { autoHide: wrongNetworkPopupOptions.autoHide, handleClose };
+  });
+
+  useEffect(() => {
+    // Capture each opening's options without restarting its timer on unrelated renders.
+    const { autoHide, handleClose } = popupRef.current;
+    if (wrongNetworkPopupShown && autoHide) {
       const timerId = setTimeout(() => {
         handleClose();
       }, 3200);
@@ -48,4 +55,5 @@ const WrongNetworkPopup: React.FC<WrongNetworkPopupProps> = ({ onClose }) => {
   );
 };
 
-export default React.memo(WrongNetworkPopup);
+const MemoizedWrongNetworkPopup = React.memo(WrongNetworkPopup);
+export default MemoizedWrongNetworkPopup;

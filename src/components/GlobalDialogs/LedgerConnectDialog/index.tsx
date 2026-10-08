@@ -79,7 +79,6 @@ const LedgerConnectDialog: React.FC<LedgerConnectDialogProps> = (props) => {
         ?.addressType as AddressType
     )({
       network: bitcoinNetworkModeToCoreNetworkMode(network as BitcoinNetworkModes),
-      // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
       onRequestKey() {},
     });
 
@@ -130,7 +129,6 @@ const LedgerConnectDialog: React.FC<LedgerConnectDialogProps> = (props) => {
 
       return isOpenCorrectApp;
     },
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onSuccess() {},
     pullKeysFromDevice,
     onPullKeysError: (e) => {
@@ -142,16 +140,6 @@ const LedgerConnectDialog: React.FC<LedgerConnectDialogProps> = (props) => {
       }
     },
   });
-
-  useEffect(() => {
-    if (currentStep === 2) {
-      checkForAppConnection();
-    } else if (currentStep === 3) {
-      requestKeys();
-    } else if (currentStep === 4) {
-      handleSelectAddress();
-    }
-  }, [currentStep]);
 
   useEffect(() => {
     if (currentStep === 5 && connected) {
@@ -201,6 +189,23 @@ const LedgerConnectDialog: React.FC<LedgerConnectDialogProps> = (props) => {
       setCurrentStep(5);
     }
   };
+  const stepActionsRef = useRef({ checkForAppConnection, requestKeys, handleSelectAddress });
+  useEffect(() => {
+    stepActionsRef.current = { checkForAppConnection, requestKeys, handleSelectAddress };
+  });
+
+  useEffect(() => {
+    // Hardware actions run on step entry, not when request callbacks are recreated.
+    const actions = stepActionsRef.current;
+    if (currentStep === 2) {
+      actions.checkForAppConnection();
+    } else if (currentStep === 3) {
+      actions.requestKeys();
+    } else if (currentStep === 4) {
+      actions.handleSelectAddress();
+    }
+  }, [currentStep]);
+
   const lastStepRef = useRef(0);
   if (currentStep !== 6) {
     lastStepRef.current = currentStep;
@@ -413,4 +418,5 @@ const LedgerConnectDialog: React.FC<LedgerConnectDialogProps> = (props) => {
   );
 };
 
-export default React.memo(LedgerConnectDialog);
+const MemoizedLedgerConnectDialog = React.memo(LedgerConnectDialog);
+export default MemoizedLedgerConnectDialog;

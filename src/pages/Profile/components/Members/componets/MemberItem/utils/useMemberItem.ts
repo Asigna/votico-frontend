@@ -18,7 +18,7 @@ const useMemberItem = (
         console.error(error);
       }
     }
-  }, []);
+  }, [handleChangeUser]);
 
   const onDeleteMember = useCallback(async (projectId: string, userId: string) => {
     const isDelete = confirm('Are you sure you want to delete this member?');
@@ -35,7 +35,7 @@ const useMemberItem = (
         console.error(error);
       }
     }
-  }, []);
+  }, [handleChangeUser]);
 
   return useMemo(() => ({ onChangeRole, onDeleteMember }), [onChangeRole, onDeleteMember]);
 };

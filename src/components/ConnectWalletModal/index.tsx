@@ -37,4 +37,5 @@ const ConnectWalletModal: React.FC = () => {
   );
 };
 
-export default React.memo(ConnectWalletModal);
+const MemoizedConnectWalletModal = React.memo(ConnectWalletModal);
+export default MemoizedConnectWalletModal;

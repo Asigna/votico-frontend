@@ -67,4 +67,5 @@ const ConnectorItem: React.FC<ConnectorItem> = (props) => {
 };
 
 ConnectorItem.displayName = 'ConnectorItem';
-export default React.memo(ConnectorItem);
+const MemoizedConnectorItem = React.memo(ConnectorItem);
+export default MemoizedConnectorItem;

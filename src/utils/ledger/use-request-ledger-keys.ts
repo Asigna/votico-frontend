@@ -3,7 +3,6 @@ import BitcoinApp from 'ledger-bitcoin';
 import { useObservable, useSubscription } from 'observable-hooks';
 import { catchError, delay, map, mergeMap, of, retry, Subject, tap } from 'rxjs';
 
-// eslint-disable-next-line no-restricted-syntax
 export enum LedgerConnectionErrors {
   FailedToConnect = 'FailedToConnect',
   AppNotOpen = 'AppNotOpen',

@@ -48,7 +48,7 @@ export const CreateProposal: React.FC = React.memo(() => {
     });
   };
 
-  useEffect(() => initSmoothScroll(), []);
+  useEffect(() => initSmoothScroll(), [initSmoothScroll]);
 
   if (!project) {
     return null;

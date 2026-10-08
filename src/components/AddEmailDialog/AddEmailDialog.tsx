@@ -128,7 +128,15 @@ export const AddEmailDialog: React.FC<TransactionCommonProps> = ({
     };
 
     validatePinCode();
-  }, [currentMail, emailPinCode, emailPinCode.length, emailValue, onClose, onSuccess]);
+  }, [
+    currentMail,
+    emailPinCode,
+    emailPinCode.length,
+    emailValue,
+    onClose,
+    onSuccess,
+    setUserEmail,
+  ]);
 
   const handleDeleteEmail = () => {
     unlinkSafeEmail(currentMail).then(() => {

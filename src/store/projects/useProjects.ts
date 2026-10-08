@@ -1,5 +1,5 @@
 import { atom, useAtom } from 'jotai';
-import { useCallback, useMemo, useState, useEffect } from 'react';
+import { useCallback, useMemo, useState, useEffect, useRef } from 'react';
 
 import { Project } from '@pages/utils/types';
 import { getMyProjects, getProjects } from '@api/project';
@@ -40,9 +40,16 @@ const useProjects = () => {
   const [projectsBySearchValue, setProjectsBySearchValue] = useState([]);
   const [myProjects, setMyProjects] = useAtom(myProjectAtom);
 
+  // Initial loading is mount-scoped; clearing or searching later must not refetch here.
+  const initialLoadRef = useRef({
+    shouldFetch: !projects.data.length && !myProjects.length,
+    setProjects,
+    setMyProjects,
+  });
   useEffect(() => {
+    const { shouldFetch, setProjects, setMyProjects } = initialLoadRef.current;
     const fetch = async () => {
-      if (!projects.data.length && !myProjects.length) {
+      if (shouldFetch) {
         const projectList = await handleGetProjects();
         const myProjectList = await handleGetMyProjects();
         setProjects(projectList);

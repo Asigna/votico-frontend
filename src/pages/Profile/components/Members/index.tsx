@@ -47,7 +47,7 @@ export const Members: React.FC<MembersProps> = React.memo((props) => {
         );
       }
     },
-    [setMembers, members]
+    [setMembers]
   );
 
   const countAdmins = members.filter((member) => member.type === 'admin').length;

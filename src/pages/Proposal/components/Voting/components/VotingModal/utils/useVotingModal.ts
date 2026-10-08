@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { getVotingPower } from '@api/proposal.ts';
 import { useParams } from 'react-router-dom';
 
@@ -9,7 +9,10 @@ const useVotingModal = () => {
     block: 0,
   });
 
+  // A confirmation loads power for the proposal it opened with, once per mount.
+  const initialProposalId = useRef(proposalId);
   useEffect(() => {
+    const proposalId = initialProposalId.current;
     const fetch = async () => {
       if (proposalId) {
         try {

@@ -48,7 +48,6 @@ const LedgerSignDialog: React.FC<LedgerSignDialogProps> = (props) => {
     isAppOpen({ name }: { name: string }) {
       return name === 'Bitcoin' || name === 'Bitcoin Test';
     },
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onSuccess() {},
     pullKeysFromDevice: () => Promise.resolve(),
   });
@@ -218,4 +217,5 @@ const LedgerSignDialog: React.FC<LedgerSignDialogProps> = (props) => {
   );
 };
 
-export default React.memo(LedgerSignDialog);
+const MemoizedLedgerSignDialog = React.memo(LedgerSignDialog);
+export default MemoizedLedgerSignDialog;

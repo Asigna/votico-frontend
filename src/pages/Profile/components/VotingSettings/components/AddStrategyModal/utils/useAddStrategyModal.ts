@@ -36,7 +36,7 @@ const useAddStrategyModal = (strategy: Strategy | null) => {
 
   const handleAddStrategy = useCallback(() => {
     console.log('projectId', projectId, getValues());
-  }, [projectId]);
+  }, [projectId, getValues]);
 
   return useMemo(
     () => ({

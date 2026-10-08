@@ -117,11 +117,6 @@ const useProposals = () => {
 
   const isMember = project.roles?.includes('member');
 
-  const updatedProposals = proposals.data.map((proposal) => ({
-    ...proposal,
-  }));
-  const updatedProject = { ...project, isMember };
-
   const calculateIsShowPagination = ({ page, limit, count }: ProposalResponse['pagination']) => {
     return (page + 1) * limit < count;
   };
@@ -161,9 +156,9 @@ const useProposals = () => {
   return useMemo(
     () => ({
       isLoading,
-      proposals: updatedProposals,
+      proposals: proposals.data.map((proposal) => ({ ...proposal })),
       myProjects,
-      project: updatedProject,
+      project: { ...project, isMember },
       setProposals,
       setIsLoading,
       isShowPagination,
@@ -182,6 +177,7 @@ const useProposals = () => {
       myProjects,
       proposals,
       project,
+      isMember,
       setProposals,
       isShowPagination,
       handleLoadMoreProposals,

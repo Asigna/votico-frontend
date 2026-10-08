@@ -20,7 +20,7 @@ export const ProjectEmpty: React.FC = React.memo(() => {
     startTransition(() => {
       navigate(`/${paths.EXPLORE}`);
     });
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="flex flex-col items-center gap-40 mt-[98rem]">
