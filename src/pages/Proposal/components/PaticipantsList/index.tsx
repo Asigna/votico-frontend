@@ -8,7 +8,7 @@ import { IVotingPower } from '@/api/project';
 import external from '@images/external.svg';
 import copy from '@images/copy.svg';
 import holders from '@images/holders.svg';
-import { Voter } from '@/pages/utils/types';
+import { Voter, VoterSelection } from '@/pages/utils/types';
 
 type VoterListProps = {
   paticipants: IVotingPower[];
@@ -16,15 +16,18 @@ type VoterListProps = {
   loading: boolean;
   voters: Voter[];
   holdersCount: number;
+  voterSelection: VoterSelection;
 };
 
 export const PaticipantsList: React.FC<VoterListProps> = React.memo((props) => {
-  const { paticipants, loading, refilList, voters, holdersCount } = props;
+  const { paticipants, loading, refilList, voters, holdersCount, voterSelection } = props;
   const [activeTab, setActiveTab] = useState('Main list');
 
-  const mainList = refilList.length > 0 ? refilList : paticipants;
+  const hasRefill = voterSelection !== 'all_holders' && refilList.length > 0;
+  const isMainList = !hasRefill || activeTab === 'Main list';
+  const mainList = hasRefill ? refilList : paticipants;
   const refillList =
-    refilList.length > 0
+    hasRefill
       ? paticipants.filter((item) => !refilList.some((ref) => ref.userAddress === item.userAddress))
       : [];
 
@@ -47,7 +50,7 @@ export const PaticipantsList: React.FC<VoterListProps> = React.memo((props) => {
             <Text message={holdersCount} size="r14" color="white" />
           </div>
         </div>
-        {refilList.length > 0 && (
+        {hasRefill && (
           <div className="flex gap-8">
             <button
               className={cx(
@@ -83,7 +86,7 @@ export const PaticipantsList: React.FC<VoterListProps> = React.memo((props) => {
       <div className="flex gap-8">
         <Text message="Voted:" size="r14" color="regular" />
         <Text
-          message={`${activeTab === 'Main list' ? mainVotersCount : refilVotersCount}/${activeTab === 'Main list' ? mainList.length : refillList.length}`}
+          message={`${isMainList ? mainVotersCount : refilVotersCount}/${isMainList ? mainList.length : refillList.length}`}
           size="r14"
         />
       </div>
@@ -110,7 +113,7 @@ export const PaticipantsList: React.FC<VoterListProps> = React.memo((props) => {
             </div>
           </>
         )}
-        {activeTab === 'Main list' &&
+        {isMainList &&
           mainList.length > 0 &&
           mainList.map((paticipant) => (
             <div
@@ -142,7 +145,7 @@ export const PaticipantsList: React.FC<VoterListProps> = React.memo((props) => {
               </div>
             </div>
           ))}
-        {activeTab === 'Refill list' &&
+        {!isMainList &&
           refillList.length > 0 &&
           refillList.map((paticipant) => (
             <div

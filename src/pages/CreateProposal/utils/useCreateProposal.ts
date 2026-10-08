@@ -70,6 +70,7 @@ const useCreateProposal = (proposal?: Proposal & { project: Project }) => {
       title: proposal?.title ? proposal?.title : '',
       text: proposal?.text ? proposal?.text : '',
       proposalType: proposal?.proposalType ? proposal?.proposalType : 'contribution_proposal',
+      voterSelection: proposal?.voterSelection ?? 'random_sample',
       roadmap: proposal?.roadmap ? proposal?.roadmap : '',
       rewardRecipient: proposal?.rewardRecipient ? proposal?.rewardRecipient : '',
 
@@ -173,6 +174,7 @@ const useCreateProposal = (proposal?: Proposal & { project: Project }) => {
           delete formData.rewardRecipient;
         }
       } else {
+        delete formData.voterSelection;
         delete formData.links;
         delete formData.nextMilestone;
         delete formData.rewardRecipient;
@@ -224,6 +226,7 @@ const useCreateProposal = (proposal?: Proposal & { project: Project }) => {
         endDate: proposal.endDate,
         discussion: proposal.discussion,
         votingType: proposal.votingType,
+        voterSelection: proposal.voterSelection ?? 'random_sample',
         options: proposal.options,
         block: Number(proposal.block),
         title: proposal.title,

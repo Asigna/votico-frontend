@@ -115,7 +115,11 @@ const useProposal = () => {
     };
 
     fetchAllPages();
-    fetchHistoryAllPages();
+    if (proposal.voterSelection !== 'all_holders') {
+      fetchHistoryAllPages();
+    } else {
+      setPaticipantsRefill([]);
+    }
   }, [proposal, proposalId]);
 
   useEffect(() => {

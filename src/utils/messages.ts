@@ -22,6 +22,10 @@ export const messages = {
     approval: 'Approval',
     basic: 'Basic',
   },
+  voterSelection: {
+    random_sample: 'Random sample',
+    all_holders: 'All holders',
+  },
   votingTypeDescription: {
     single: 'Each user can select only one option from many, giving it his total voting power.',
     weighted:

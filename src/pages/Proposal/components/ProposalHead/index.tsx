@@ -157,14 +157,16 @@ export const ProposalHead: React.FC<ProposalHeadProps> = React.memo((props) => {
               )}
             </>
           )}
-          {isBitcredit && proposal.retryCount === 1 && (
-            <>
-              <span className="text-r14 text-regular mx-4 hidden sm:block">·</span>
-              <div className="flex items-center gap-4 px-8 py-4 text-r12 rounded-[8px] bg-white-3">
-                Refill
-              </div>
-            </>
-          )}
+          {isBitcredit &&
+            proposal.voterSelection !== 'all_holders' &&
+            proposal.retryCount === 1 && (
+              <>
+                <span className="text-r14 text-regular mx-4 hidden sm:block">·</span>
+                <div className="flex items-center gap-4 px-8 py-4 text-r12 rounded-[8px] bg-white-3">
+                  Refill
+                </div>
+              </>
+            )}
           {!isPending && Boolean(proposal.quorumReached) && Boolean(proposal.project.quorum) && (
             <>
               <span className="text-r14 text-regular ml-8 hidden sm:block">·</span>

@@ -21,11 +21,11 @@ export const Voting: React.FC<VotingProps> = React.memo((props) => {
   const { address } = useAddress();
 
   const isShowVoting = Array.isArray(proposal.options) && proposal.options.length > 0;
-  const isBitcredit = proposal.project?.name === 'Bitcredit Protocol';
+  const isBitcredit = proposal.project.type === 'bitcredit';
   const inPaticipants =
     paticipants.findIndex((paticipant) => paticipant.userAddress === address) !== -1;
 
-  const isBitcreditCanVote = (isBitcredit && inPaticipants) || !isBitcredit;
+  const isBitcreditCanVote = !isBitcredit || inPaticipants;
 
   if (!isShowVoting) {
     return null;

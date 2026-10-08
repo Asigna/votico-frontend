@@ -11,6 +11,8 @@ import {
 import { Button, ComboBox, DatePicker, Image, Input, Text, TextArea } from '@kit';
 import warningIcon from '@images/warning.svg';
 import { NewProposal, ProposalType } from '@api/admin';
+import { messages } from '@utils';
+import { VoterSelection } from '@pages/utils/types';
 
 type Step1Props = {
   onClickBack: () => void;
@@ -85,7 +87,7 @@ export const Step1: React.FC<Step1Props> = React.memo((props) => {
         </div>
       )}
       {isBitcredit && (
-        <div className="flex mt-20 items-start justify-between gap-20">
+        <div className="flex flex-col sm:flex-row mt-20 items-start justify-between gap-20">
           <Controller
             control={control}
             name="proposalType"
@@ -97,6 +99,20 @@ export const Step1: React.FC<Step1Props> = React.memo((props) => {
                 itemMap={(val) => ProposalTypeLabels[val as keyof typeof ProposalTypeLabels]}
                 fullWidth
                 label="Proposal type"
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="voterSelection"
+            render={({ field }) => (
+              <ComboBox
+                items={Object.keys(messages.voterSelection)}
+                selected={field.value ?? 'random_sample'}
+                onChange={(val) => field.onChange(val)}
+                itemMap={(val) => messages.voterSelection[val as VoterSelection]}
+                fullWidth
+                label="Voters"
               />
             )}
           />

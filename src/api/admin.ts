@@ -1,4 +1,4 @@
-import { Strategy, User } from '@/pages/utils/types';
+import { Strategy, User, VoterSelection } from '@/pages/utils/types';
 import { MemberResponse } from '@types';
 import { voticoAxiosInstance } from '@api/instance.ts';
 
@@ -46,6 +46,7 @@ export type NewProposal = {
   startDate: number;
   endDate: number;
   votingType: 'single' | 'weighted' | 'approval' | 'basic'; //  | 'ranked'
+  voterSelection?: VoterSelection;
   discussion?: string;
   options: string[];
   isHiddenVotes: boolean;

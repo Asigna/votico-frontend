@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Button, Image, Text } from '@kit';
 import { Project, Proposal } from '@pages/utils/types';
+import { messages } from '@utils';
 
 import external from '@images/external.svg';
 import githubImage from '@images/logo/github.png';
@@ -25,6 +26,11 @@ export const ProposalDetails: React.FC<ProposalHeadProps> = React.memo((props) =
   return (
     <div className={className}>
       <Text message="Proposal details" size="b32" sizeSm="s22" />
+      <Text
+        message={`Voters: ${messages.voterSelection[proposal.voterSelection ?? 'random_sample']}`}
+        size="r14"
+        className="mt-16"
+      />
       {proposal.proposalType !== 'strategic_decision' && (
         <div className="flex flex-col gap-8 rounded-[8px] bg-white-3 p-20 mt-16">
           <Text message="Next Deliverable" size="m14" color="regular" />

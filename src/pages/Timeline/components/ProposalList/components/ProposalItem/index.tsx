@@ -33,6 +33,7 @@ export const ProposalItem: React.FC<
     proposalType,
     nextMilestone,
     retryCount,
+    voterSelection,
   } = props;
 
   const navigate = useNavigate();
@@ -88,7 +89,7 @@ export const ProposalItem: React.FC<
               />
             </>
           )}
-          {isBitcredit && retryCount === 1 && (
+          {isBitcredit && voterSelection !== 'all_holders' && retryCount === 1 && (
             <>
               <span className="text-r14 text-regular mx-8 hidden sm:block">·</span>
               <div className="flex items-center gap-4 px-12 py-4 text-r12 rounded-[8px] bg-white-3">

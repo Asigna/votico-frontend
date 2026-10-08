@@ -86,12 +86,15 @@ const ProposalTypeLabels = {
 
 export type ProposalType = keyof typeof ProposalTypeLabels;
 
+export type VoterSelection = 'random_sample' | 'all_holders';
+
 export type Proposal = {
   _id: string;
   assets?: Asset[];
   ipfs: string;
   projectId: string;
   votingType: 'single' | 'weighted' | 'approval' | 'basic'; // | 'ranked'
+  voterSelection: VoterSelection;
   title: string;
   text: string;
   block?: string;

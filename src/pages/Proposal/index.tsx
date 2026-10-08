@@ -123,6 +123,7 @@ export const Proposal: React.FC = React.memo(() => {
               refilList={paticipantsRefill}
               voters={proposal.voterList}
               holdersCount={proposal.bitcreditHoldersCount || 0}
+              voterSelection={proposal.voterSelection}
             />
           )}
         </div>
