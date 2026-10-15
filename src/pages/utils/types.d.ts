@@ -1,6 +1,8 @@
 export type Asset = {
   metadata: {
-    tx_id: string;
+    tx_id?: string;
+    image?: string;
+    url?: string;
   };
   type: 'BRC_20' | 'INSCRIPTION_COLLECTION' | 'RUNE';
   assetId: string;

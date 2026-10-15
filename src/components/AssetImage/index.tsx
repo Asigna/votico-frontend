@@ -16,6 +16,10 @@ type AssetProps = {
 export const AssetImage: React.FC<AssetProps> = React.memo((props) => {
   const { asset, size, className } = props;
 
+  if (asset.metadata?.image) {
+    return <Image src={asset.metadata.image} size={size} className={className} />;
+  }
+
   return (
     <div
       className={cx(className, 'overflow-hidden')}
