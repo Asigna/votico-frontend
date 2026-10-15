@@ -22,9 +22,15 @@ const useProjectItem = (
         return;
       }
 
-      const result: { data: { success: boolean } } = isMember
+      const result: { data: { success: boolean } } | undefined = isMember
         ? await leaveFromTheProject(_id)
         : await joinToProject(_id);
+
+      // No response means the session is gone; reconnect instead of failing silently.
+      if (!result) {
+        onLogin();
+        return;
+      }
 
       if (result.data.success) {
         onClickButton(_id, !isMember);

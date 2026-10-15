@@ -77,5 +77,6 @@ export const unlinkSafeEmail = async (email: string) => {
 export const getUserEmail = async (): Promise<EmailSettingsResponse> => {
   const url = 'email/user';
 
-  return voticoAxiosInstance.get(url).then((data) => data.data);
+  // A signed-out visitor gets no response from the 401 interceptor.
+  return voticoAxiosInstance.get(url).then((data) => data?.data);
 };

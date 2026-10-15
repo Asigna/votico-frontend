@@ -31,22 +31,18 @@ export const bitcoinLogin = async ({
   network: string;
   walletType: WalletType;
 }) => {
-  try {
-    const response = await voticoAxiosInstance.post('/auth', {
-      signature,
-      address,
-      publicKey,
-      walletType,
-    });
-    const token = response.data.data;
-    const storageKeys = getStorageKeysForNetwork(network);
-    localStorage.setItem(storageKeys.walletClass, token.walletClass);
-    localStorage.setItem(storageKeys.voticoToken, token.jwtToken);
-    localStorage.setItem(storageKeys.voticoRefresh, token.refreshToken.refreshToken);
-    voticoAxiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token.jwtToken}`;
-  } catch (error) {
-    console.error(error);
-  }
+  const response = await voticoAxiosInstance.post('/auth', {
+    signature,
+    address,
+    publicKey,
+    walletType,
+  });
+  const token = response.data.data;
+  const storageKeys = getStorageKeysForNetwork(network);
+  localStorage.setItem(storageKeys.walletClass, token.walletClass);
+  localStorage.setItem(storageKeys.voticoToken, token.jwtToken);
+  localStorage.setItem(storageKeys.voticoRefresh, token.refreshToken.refreshToken);
+  voticoAxiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token.jwtToken}`;
 };
 
 voticoAxiosInstance.interceptors.request.use((config) => {

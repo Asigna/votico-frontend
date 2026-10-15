@@ -47,9 +47,15 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = React.memo((props) => {
         return;
       }
 
-      const result: { data: { success: boolean } } = project.isMember
+      const result: { data: { success: boolean } } | undefined = project.isMember
         ? await leaveFromTheProject(project._id)
         : await joinToProject(project._id);
+
+      // No response means the session is gone; reconnect instead of failing silently.
+      if (!result) {
+        onLogin();
+        return;
+      }
 
       if (result.data.success) {
         onClickButton(project._id, !project.isMember);

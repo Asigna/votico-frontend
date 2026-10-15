@@ -47,6 +47,15 @@ export const getStorageKeysForNetwork = (network: string) => {
   };
 };
 
+// A stored address counts as signed in only together with its session.
+export const getSignedInAddress = (network: string) => {
+  const storageKeys = getStorageKeysForNetwork(network);
+
+  return localStorage.getItem(storageKeys.voticoRefresh)
+    ? (localStorage.getItem(storageKeys.voticoWalletId) ?? '')
+    : '';
+};
+
 export const useNetworkObj = () => {
   const { network } = useNetwork();
 
@@ -91,14 +100,14 @@ export const useTreasuresMulitisigApi = () => {
     // TODO_Y: add hooks for walletType localStorage management with type safe method wrappers
     localStorage.setItem(storageKeys.walletType, walletType);
     localStorage.setItem(storageKeys.ownerPk, publicKey);
+    localStorage.setItem(storageKeys.voticoWalletId, address);
     setAddress(address);
 
     window.location.href = '/';
   };
 
   useEffect(() => {
-    const storageKeys = getStorageKeysForNetwork(network);
-    setAddress(localStorage.getItem(storageKeys.voticoWalletId) ?? '');
+    setAddress(getSignedInAddress(network));
   }, [network, setAddress]);
 
   const getContacts = async () => {
@@ -232,8 +241,6 @@ export const useTreasuresMulitisigApi = () => {
         );
         const ownerPK = addr?.publicKey || '';
         const ownerAddress = addr?.address || '';
-        const storageKeys = getStorageKeysForNetwork(network);
-        localStorage.setItem(storageKeys.voticoWalletId, ownerAddress);
         await signMessage({
           onFinish: async (response) => {
             const signature = response;
@@ -276,8 +283,6 @@ export const useTreasuresMulitisigApi = () => {
         );
         const ownerPK = addr?.publicKey || '';
         const ownerAddress = addr?.address || '';
-        const storageKeys = getStorageKeysForNetwork(network);
-        localStorage.setItem(storageKeys.voticoWalletId, ownerAddress);
         await signMessage({
           onFinish: async (response) => {
             const signature = response;
@@ -306,7 +311,6 @@ export const useTreasuresMulitisigApi = () => {
 
   // TODO_R: [NBOS] ts window.btc, remove @ts-expect-error
   const authorizationBitget = async () => {
-    const storageKeys = getStorageKeysForNetwork(network);
     const requestAccount = async () => {
       // @ts-expect-error: need ts to object window
       const result: string[] = await bitkeep.unisat.requestAccounts();
@@ -333,7 +337,6 @@ export const useTreasuresMulitisigApi = () => {
         return { error: 'network mismatch' };
       }
     }
-    localStorage.setItem(storageKeys.voticoWalletId, account.address);
     // @ts-expect-error: need ts to object window
     const signature: string = await bitkeep.unisat.signMessage('Hello Votico!');
     await finalizeAuth('BITGET', account.publicKey, account.address, signature);
@@ -356,7 +359,6 @@ export const useTreasuresMulitisigApi = () => {
 
       return;
     }
-    const storageKeys = getStorageKeysForNetwork(network);
     // @ts-expect-error: need ts to object window
     const result: { publicKey: string; address: string } = await okxwallet.bitcoin.connect();
     const ownerAddress = result.address;
@@ -365,7 +367,6 @@ export const useTreasuresMulitisigApi = () => {
     if (network === 'testnet' ? !isTestnetAddress(ownerAddress) : !isMainnetAddress(ownerAddress)) {
       return { error: 'network mismatch' };
     }
-    localStorage.setItem(storageKeys.voticoWalletId, ownerAddress);
     // @ts-expect-error: need ts to object window
     const signature: string = await okxwallet.bitcoin.signMessage('Hello Votico!', {
       from: ownerAddress,
@@ -400,13 +401,11 @@ export const useTreasuresMulitisigApi = () => {
       }[] = accounts;
       // @ ts-expect-error: need ts to object window
       // await window.phantom.bitcoin.requestAccounts();
-      const storageKeys = getStorageKeysForNetwork(network);
       // const addressResult = addresses.find((address) => address.addressType === 'p2tr');
       const addressResult = addresses.find((address) => address.purpose === 'ordinals');
       const ownerPublickKey = addressResult?.tweakedPublicKey || addressResult?.publicKey;
       const ownerAddress = addressResult?.address;
       if (!ownerPublickKey || !ownerAddress) throw new Error('not valid request accounts');
-      localStorage.setItem(storageKeys.voticoWalletId, ownerAddress);
       const signatureResponse: { signedMessage: Uint8Array; signature: Uint8Array } =
         // @ts-expect-error: need ts to object window
         await window.phantom.bitcoin.signMessage(
@@ -441,7 +440,6 @@ export const useTreasuresMulitisigApi = () => {
     if (network === 'testnet' ? !isTestnetAddress(ownerAddress) : !isMainnetAddress(ownerAddress)) {
       return { error: 'network mismatch' };
     }
-    localStorage.setItem(storageKeys.voticoWalletId, ownerAddress);
     // @ts-expect-error: need ts to object window
     const response = await window.btc.request('signMessage', {
       message: 'Hello Votico!',
@@ -457,7 +455,6 @@ export const useTreasuresMulitisigApi = () => {
   const authorizationUnisat = async () => {
     try {
       const net = network;
-      const storageKeys = getStorageKeysForNetwork(net);
       // @ts-expect-error: need ts to object window
       const accounts = await window.unisat.getAccounts();
       await new Promise((r) => setTimeout(r, 500));
@@ -475,7 +472,6 @@ export const useTreasuresMulitisigApi = () => {
         return { error: 'network mismatch' };
       }
 
-      localStorage.setItem(storageKeys.voticoWalletId, ownerAddress);
       // @ts-expect-error: need ts to object window
       const response = await window.unisat.signMessage('Hello Votico!');
       await finalizeAuth('UNISAT', ownerPK, ownerAddress, response);

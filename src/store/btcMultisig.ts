@@ -2,7 +2,7 @@ import { atom, useAtom } from 'jotai';
 
 import { atomWithStorage } from '@utils';
 import { useEffect } from 'react';
-import { getStorageKeysForNetwork } from '../hooks';
+import { getSignedInAddress } from '../hooks';
 
 // TODO_R: [NBOS] state to single file
 const addressAtom = atom('');
@@ -12,10 +12,7 @@ export const useAddress = () => {
   const { network } = useNetwork();
 
   useEffect(() => {
-    const localStorageAddress = localStorage.getItem(
-      getStorageKeysForNetwork(network).voticoWalletId
-    );
-    setAddress(localStorageAddress || '');
+    setAddress(getSignedInAddress(network));
   }, [network, setAddress]);
 
   return {
