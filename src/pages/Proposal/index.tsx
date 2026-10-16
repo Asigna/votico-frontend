@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 import Markdown from 'react-markdown';
 import { isFuture, isPast } from 'date-fns';
 
@@ -75,15 +76,9 @@ export const Proposal: React.FC = React.memo(() => {
             full
           />
           <Text message="Abstract" size="b32" sizeSm="s22" className="mt-24" />
-          {isBitcredit ? (
-            <div className="markdown-body sm:my-24">
-              <Text message={proposal.text} size="r14" className="" />
-            </div>
-          ) : (
-            <div className="markdown-body sm:my-24">
-              <Markdown remarkPlugins={[remarkGfm]}>{proposal.text}</Markdown>
-            </div>
-          )}
+          <div className="markdown-body sm:my-24">
+            <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>{proposal.text}</Markdown>
+          </div>
           {isBitcredit && <ProposalDetails proposal={proposal} />}
           {Boolean(proposal.discussion) && (
             <div className="mt-16 sm:mt-32">

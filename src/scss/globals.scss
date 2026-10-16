@@ -65,7 +65,8 @@ body {
   min-width: 200px;
   background-color: var(--color-black);
 
-  p {
+  p,
+  li {
     color: var(--color-regular);
     font-size: 18rem;
     font-weight: 500;
